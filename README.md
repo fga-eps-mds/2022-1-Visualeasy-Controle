@@ -1,38 +1,148 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 2022.1-Visualeasy-Controle
 
-## Getting Started
 
-```bash
-npm install
-```
+<p align="center">
+  <img src="https://i.imgur.com/imVZeBV.jpeg" alt="logo" />
+</p>
 
-First, run the development server:
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=bugs)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=coverage)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## ℹ️ Sobre o projeto
+<p align="justify">O Visualeasy é uma aplicação Web que fornece uma visualização gráfica de métricas históricas de variáveis de produção.</p>
+<p align="justify">O projeto é desenvolvido por alunos de gadruação em engenharia de Software da Universidade de Brasília - do Campus do Gama (FGA) - para a disciplina de Engenharia de Produto de Software (EPS).</p>
+<p align="justify">A aplicação Visualeasy proporciona a visualização de dados de forma gráfica ao longo do tempo, para auxiliar na tomada de decisões.</p>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## 🐳 Guia de Uso do Docker
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+* ### Instalação
+Primeiramente é necessário ter o docker instalado, caso não tenha acesse o [Instalação docker](https://docs.docker.com/engine/installation/linux/docker-ce/). Após feito isso, instale o [Docker-compose](https://docs.docker.com/compose/install/).
 
-## Learn More
+* ### Organização do projeto
+O projeto é separado em diferentes pacotes, sendo que cada microserviço está separado em um container, sendo que todos os pacotes precisam do container "postgres" para funcionar corretamente. Os containers existentes atualmente são: controle e postgres.
 
-To learn more about Next.js, take a look at the following resources:
+* ### Comandos básicos 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ &emsp;&emsp; Caso queira rodar o container:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+ ```terminal
+  docker-compose up 
+ ```
 
-## Deploy on Vercel
+  &emsp;&emsp; Caso queira rodar o container separado:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ ```terminal
+  docker-compose up postgres
+  docker-compose up controle 
+ ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+&emsp;&emsp; Caso entrar no bash no container (Ele tem que estar rodando):
+
+ ```terminal
+  docker exec -it controle /bin/bash
+ ```
+
+ &emsp;&emsp; Para listar os containers que estão em execução:
+ 
+ ```terminal
+  docker ps
+ ```
+ &emsp;&emsp; Para listar todos os containers já executados na sua máquina:
+ 
+ ```terminal
+  docker ps -a
+ ```
+
+
+
+ Para acessar o site (development):
+ 
+https://localhost:8080/
+
+
+
+### 👤 Equipe
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/brunaalmeidasantos" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/brunaalmeidasantos" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Bruna Santos</figcaption>
+</figure>
+
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/brunocmo" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/brunocmo" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Bruno Nunes</figcaption>
+</figure>
+
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/damarcones" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/damarcones" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Damarcones Porto</figcaption>
+</figure>
+
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/estevaoreis25" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/u/30116525?v=4" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Estevão Reis</figcaption>
+</figure>
+
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/Gabriel-Azevedo-Batalha" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/Gabriel-Azevedo-Batalha" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Gabriel Batalha</figcaption>
+</figure>
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/gustavoduartemoreira" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/u/32913216?v=4" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Gustavo Duarte</figcaption>
+</figure>
+
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/itallogravina" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/itallogravina" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Itallo Gravina</figcaption>
+</figure>
+
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/Joao-Pedro-Moura" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/Joao-Pedro-Moura" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Jõao P. Moura</figcaption>
+</figure>
+
+
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/lbrunofidelis" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/lbrunofidelis" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Luis B. Fidelis</figcaption>
+</figure>
+<figure style="float:left;margin-right:16px;">
+  <a href="https://github.com/marcos-mv" target="_blank" style="text-decoration: none">
+    <img src="https://avatars.githubusercontent.com/marcos-mv" alt="drawing" style="width:120px;border-radius: 50%;"/>
+  </a>
+  <figcaption>Marcos Vinícius</figcaption>
+</figure>
+
+

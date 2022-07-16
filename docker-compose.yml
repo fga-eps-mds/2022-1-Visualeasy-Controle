@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+
+  postgres:
+      image: postgres:14
+      environment:
+          POSTGRES_USER: "developer"
+          POSTGRES_PASSWORD: "developer"
+          POSTGRES_DB: "dev_database"
+      container_name: database
+      ports:
+          - "5432:5432"
+
+  controle:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/visualeasy-controle
+      - /visualeasy-controle/node_modules
+    container_name: controle
+    links:
+      - postgres
+    ports:
+     - "8080:8080"
+    environment:
+      - NODE_ENV=development
