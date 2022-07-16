@@ -1,3 +1,10 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=bugs)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=fga-eps-mds_2022-1-Visualeasy&metric=coverage)](https://sonarcloud.io/summary/new_code?id=fga-eps-mds_2022-1-Visualeasy)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
