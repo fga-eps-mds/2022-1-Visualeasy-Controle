@@ -15,6 +15,18 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   collectCoverage: true,
   collectCoverageFrom: ["./src/**"],
+  reporters: [
+    "default",
+    [
+        'jest-sonar',
+        {
+            outputDirectory: "coverage/",
+            outputName: "jest-report.xml",
+            reportedFilePath: "relative",
+            relativeRootDir: "<rootDir>/../"
+        }
+    ]
+]
   // coverageThreshold: {
   //   "global": {
   //     "lines": 80
