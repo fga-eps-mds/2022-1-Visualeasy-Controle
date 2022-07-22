@@ -42,10 +42,11 @@ O projeto é separado em diferentes pacotes, sendo que cada microserviço está 
   docker-compose up controle 
  ```
 
-&emsp;&emsp; Caso entrar no bash no container (Ele tem que estar rodando):
+&emsp;&emsp; Caso entrar no bash no container e rodar os testes (Ele tem que estar rodando):
 
  ```terminal
   docker exec -it controle /bin/bash
+  npm run test
  ```
 
  &emsp;&emsp; Para listar os containers que estão em execução:
