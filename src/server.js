@@ -1,20 +1,7 @@
 const https = require('https');
 const fs = require('fs');
 
-const express = require('express');
-const routes = require('./routes');
-
-const db = require('./config/db')
-
-const app = express();
-
-const Sequelize = require('sequelize');
-
-
-app.use(express.json());
-app.use(routes);
-
-const sequelize = new Sequelize(db);
+const app = require('./app');
 
 https
     .createServer(
@@ -30,6 +17,3 @@ https
         console.log('Estou rodando !!!');
     });
 
-app.get('/', (req, res) => {
-    res.send('Hello visualeasy.');
-});

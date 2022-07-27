@@ -1,6 +1,6 @@
 const VariavelModel = require('../src/models/variavel');
 
-describe('Verificar os atributos da model', () => {
+describe('Verify names inputed in model', () => {
   it('should return the id', () => {
     const name = 'id';
 
