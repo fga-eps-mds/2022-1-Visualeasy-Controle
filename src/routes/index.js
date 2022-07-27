@@ -2,8 +2,8 @@ const express = require('express');
 
 const routes = express.Router();
 
-const helloWorldRouter = require('./helloworld.routes');
+const variavelRouter = require('./variavel.routes');
 
-routes.use('/test', helloWorldRouter);
+routes.use('/createVariable', variavelRouter);
 
 module.exports = routes;
