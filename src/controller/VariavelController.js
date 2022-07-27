@@ -1,8 +1,11 @@
+const { VariavelCreate } = require('./VariavelCreate');
 const Variavel = require('../models/variavel');
 
 module.exports = {
 
-    index() {
-
+    createVariavel(request, response) {
+        console.log(request.body)
+        const variavel = VariavelCreate(request);
+        return response.json(variavel);
     },
 };

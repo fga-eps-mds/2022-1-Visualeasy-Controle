@@ -1,4 +1,10 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://postgres@localhost:5432/crud', { dialect: 'postgres' });
-
-module.exports = sequelize;
+module.exports = {
+    dialect: "postgres",
+    host: "127.0.0.1",
+    username: "developer",
+    password: "developer",
+    database: "dev_database",
+    define: {
+        timestamps: false,
+    },
+};

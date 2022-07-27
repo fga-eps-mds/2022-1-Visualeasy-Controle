@@ -1,23 +1,26 @@
-const Sequelize = require('sequelize');
 const database = require('../config/db');
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(database);
 
-const Variavel = database.define('variavel', {
+const Variavel = sequelize.define('variavel', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     variavel: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     data: {
-        type: Sequelize.DATE
+        type: DataTypes.DATE
     },
     valor: {
-        type: Sequelize.DOUBLE
+        type: DataTypes.DOUBLE
     }
-})
+}, { schema: "Variavel", timestamps: false });
+
+
 
 module.exports = Variavel;
