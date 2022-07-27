@@ -15,6 +15,7 @@ module.exports = {
   collectCoverageFrom: ['./src/**'],
   coveragePathIgnorePatterns: [
     '/src/server.js',
+    '/src/config/',
   ],
   reporters: [
     'default',
