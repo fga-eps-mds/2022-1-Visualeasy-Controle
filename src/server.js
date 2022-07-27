@@ -33,10 +33,3 @@ https
 app.get('/', (req, res) => {
     res.send('Hello visualeasy.');
 });
-
-app.post('/testando', (request, response) => {
-    console.log(request.body)
-    response.json({
-        name: 'teste'
-    });
-})

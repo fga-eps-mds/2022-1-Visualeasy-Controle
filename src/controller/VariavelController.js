@@ -3,9 +3,8 @@ const Variavel = require('../models/variavel');
 
 module.exports = {
 
-    createVariavel(request, response) {
-        console.log(request.body)
-        const variavel = VariavelCreate(request);
-        return response.json(variavel);
+    async createVariavel(request, response) {
+        const variavel = await VariavelCreate(request);
+        return response.json({ variavel, resposta: 'Sucesso!!' });
     },
 };

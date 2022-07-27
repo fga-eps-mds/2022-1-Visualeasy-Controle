@@ -5,7 +5,7 @@ const sequelize = new Sequelize(database);
 const Variavel = sequelize.define('variavel', {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
+        autoIncrement: false,
         allowNull: false,
         primaryKey: true
     },
@@ -19,7 +19,7 @@ const Variavel = sequelize.define('variavel', {
     valor: {
         type: DataTypes.DOUBLE
     }
-}, { schema: "Variavel", timestamps: false });
+}, { schema: "variavel", timestamps: false });
 
 
 
