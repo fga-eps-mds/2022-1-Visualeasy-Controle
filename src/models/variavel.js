@@ -5,7 +5,7 @@ const sequelize = new Sequelize(database);
 const Variavel = sequelize.define('variavel', {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: false,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
