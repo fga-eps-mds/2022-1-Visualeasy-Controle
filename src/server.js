@@ -67,9 +67,7 @@ app.listen(PORT, () => {
             if (err) throw err;
             console.log('File is created successfully.');
         });
-
         console.log(`Servidor online no http://localhost:${PORT}`);
-
     } else
         console.log(`Servidor online no http://localhost:${PORT}`);
 })
