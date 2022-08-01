@@ -57,8 +57,8 @@ describe('Test VariavelRequest.js functions', () => {
 
         const entrada = {
             "variavel": "test",
-            "startDate": "2012-04-23",
-            "endDate": "2014-04-23"
+            "startDate": "2014-04-23 06:18:00.000",
+            "endDate": "2014-04-23 06:19:00.000"
         }
 
         const saida = {
@@ -66,7 +66,7 @@ describe('Test VariavelRequest.js functions', () => {
                 {
                     "id": 3,
                     "variavel": "test",
-                    "data": "2014-04-23",
+                    "data": "2014-04-23 06:18:30.000",
                     "valor": 23
                 }
             ],
@@ -77,19 +77,19 @@ describe('Test VariavelRequest.js functions', () => {
             {
                 "id": 3,
                 "variavel": "test",
-                "data": "2014-04-23",
+                "data": "2014-04-23 06:18:30.000",
                 "valor": 23
             },
             {
                 "id": 4,
-                "variavel": "teste",
-                "data": "2014-02-12",
+                "variavel": "test",
+                "data": "2014-04-23 06:19:01.000",
                 "valor": 423
             },
             {
                 "id": 5,
-                "variavel": "test",
-                "data": "2016-06-05",
+                "variavel": "teste",
+                "data": "2016-06-05 03:45:00.000",
                 "valor": 25
             }
         ]
@@ -98,14 +98,15 @@ describe('Test VariavelRequest.js functions', () => {
         .spyOn(Variavel, "findAll")
         .mockImplementation((req) => {
             dataT = []
-            for(var i=0; i< mockData.length; i++)
+            for(var i=0; i< mockData.length; i++){
                 if(mockData[i]["variavel"] == entrada["variavel"] && 
                     mockData[i]["data"] >= entrada["startDate"] && 
                     mockData[i]["data"] <= entrada["endDate"])
                     dataT.push(mockData[i])
+            }
             return dataT;
         })
-
+        
         const response = await request(app).post("/createVariable/3").send(entrada)
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(saida);
