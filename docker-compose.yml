@@ -9,8 +9,13 @@ services:
           POSTGRES_PASSWORD: "developer"
           POSTGRES_DB: "dev_database"
       container_name: database
+      volumes:
+        - ./postgresScripts/variavel-schema.sql:/docker-entrypoint-initdb.d/variavel-schema.sql
       ports:
           - "5432:5432"
+      networks: 
+            backend:
+                ipv4_address: 172.25.0.2
 
   controle:
     build:
@@ -26,3 +31,14 @@ services:
      - "8080:8080"
     environment:
       - NODE_ENV=development
+    networks: 
+            backend:
+                ipv4_address: 172.25.0.3
+
+networks:
+  backend:        
+    driver: "bridge"
+    ipam:
+        config:
+            - subnet: 172.25.0.0/16
+              gateway: 172.25.0.1

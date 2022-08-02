@@ -10,6 +10,9 @@ COPY . .
 
 CMD [ "npm", "run", "dev" ]
 
+# tem que adicionar isso aqui no cmd acima
+# CMD NODE_URLS=https://*:$PORT npm start
+
 
 
 
