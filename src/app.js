@@ -5,9 +5,10 @@ const bodyParser = require("body-parser");
 const db = require('./config/db')
 
 const app = express();
+var cors = require('cors');
+app.use(cors());
 
 const Sequelize = require('sequelize');
-
 
 app.use(bodyParser.json());
 app.use(routes);
