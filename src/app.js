@@ -20,8 +20,4 @@ app.use(routes);
 
 const sequelize = new Sequelize(db);
 
-app.get('/', cors(corsOptions), (req, res) => {
-  res.json('Hello visualeasy.');
-});
-
 module.exports = app;
