@@ -11,6 +11,7 @@ services:
       container_name: database
       volumes:
         - ./postgresScripts/variavel-schema.sql:/docker-entrypoint-initdb.d/variavel-schema.sql
+        - ./csvFiles/dados_unb.csv:/csvFiles/dados_unb.csv
       ports:
           - "5432:5432"
       networks: 

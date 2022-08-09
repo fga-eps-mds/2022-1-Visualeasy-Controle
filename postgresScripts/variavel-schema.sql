@@ -6,3 +6,8 @@ CREATE TABLE variavel.variavels (
  "valor" numeric NOT NULL,
  CONSTRAINT "Variavels_pk" PRIMARY KEY ("id")
 );
+
+COPY variavel.variavels(variavel, data, valor)
+FROM '/csvFiles/dados_unb.csv'
+DELIMITER ','
+CSV HEADER;
