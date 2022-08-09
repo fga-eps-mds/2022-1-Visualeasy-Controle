@@ -49,7 +49,7 @@ describe('Test VariavelRequest.js functions', () => {
                     dataT.push(mockData[i])
             return dataT;
         })
-        const response = await request(app).get("/request/variableNames").send(entrada)
+        const response = await request(app).post("/variavel/getNamesByName").send(entrada)
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(saida);
     })
@@ -107,7 +107,7 @@ describe('Test VariavelRequest.js functions', () => {
             return dataT;
         })
         
-        const response = await request(app).get("/request/variables").send(entrada)
+        const response = await request(app).post("/variavel/filtered").send(entrada)
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(saida);
     })

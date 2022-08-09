@@ -71,7 +71,7 @@ describe('Test VariavelController.js functions', () => {
             return payload;
         })
 
-        const response = await request(app).post("/createVariable").send(payload)
+        const response = await request(app).post("/variavel/create").send(payload)
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(variavelCreate);
     })
