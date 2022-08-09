@@ -1,5 +1,7 @@
 on: [push, pull_request]
 
+
+
 name: SonarCloud
 jobs:
   sonarcloud:
@@ -12,6 +14,16 @@ jobs:
       run:  git fetch origin main
     - name: Instalar dependencias
       run:  npm install
+    - name: Create env file
+      run: |
+        touch .env
+        echo DIALECT=${{ secrets.ENV_DIALECT }} >> .env
+        echo HOST=${{ secrets.ENV_HOST }} >> .env
+        echo USERNAME=${{ secrets.ENV_USERNAME }} >> .env
+        echo PASSWORD=${{ secrets.ENV_PASSWORD }} >> .env
+        echo DATABASE=${{ secrets.ENV_DATABASE }} >> .env
+        echo PORT=${{ secrets.ENV_PORT }} >> .env
+        cat .env
     - name: Instalar Jest
       run:  npm install -g jest
     - name: Executar testes
