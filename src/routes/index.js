@@ -4,6 +4,6 @@ const routes = express.Router();
 
 const variavelRouter = require('./variavel.routes');
 
-routes.use('/createVariable', variavelRouter);
+routes.use('/variavel', variavelRouter);
 
 module.exports = routes;
