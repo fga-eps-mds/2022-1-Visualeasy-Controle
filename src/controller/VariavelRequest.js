@@ -34,4 +34,36 @@ module.exports = {
     });
     return variavels;
   },
+
+  async VariavelRequestFilteredByFixedPeriod(request) {
+    const { variavel, intervalo } = request.body;
+
+    const today = new Date();
+    let period = new Date();
+
+    switch(intervalo) {
+      case 1: 
+        period.setHours( period.getHours() - 1);
+        break;
+      case 2: 
+        period.setDate( period.getDate() - 1);
+        break;
+      case 3:
+        period.setDate( period.getDate() - 7);
+        break;
+      case 4:
+        period.setDate( period.getDate() - 30);
+        break;
+      default:
+        break;
+    }
+
+    const variavels = await Variavel.findAll({
+      where: {
+        variavel: variavel,
+        data: { [Sequelize.Op.between]: [period, today] },
+      },
+    });
+    return variavels;
+  },
 };

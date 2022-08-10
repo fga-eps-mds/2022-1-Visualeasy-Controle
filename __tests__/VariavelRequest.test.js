@@ -153,4 +153,76 @@ describe('Test VariavelRequest.js functions', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(saida);
   });
+  it.skip('should get variable information with time fixed.', async () => {
+    const payload = [
+      {
+        "id": 4641,
+        "variavel": "Mewtwo",
+        "data": "2022-08-09T14:12:43.510Z",
+        "valor": "13.1332"
+      },
+      {
+        "id": 4641,
+        "variavel": "Mewtwo",
+        "data": "2022-08-09T14:12:43.510Z",
+        "valor": "13.1332"
+      },
+      {
+        "id": 4642,
+        "variavel": "Mewtwo",
+        "data": "2022-08-09T14:05:43.510Z",
+        "valor": "13.1332"
+      },
+      {
+        "id": 4643,
+        "variavel": "Mewtwo",
+        "data": "2022-08-08T14:12:43.510Z",
+        "valor": "13.1332"
+      },
+      {
+        "id": 4644,
+        "variavel": "Mewtwo",
+        "data": "2022-08-02T14:12:43.510Z",
+        "valor": "13.1332"
+      },
+    ];
+
+    const checkPayload = {
+      variavels: [
+        {
+          "id": 4641,
+          "variavel": "Mewtwo",
+          "data": "2022-08-09T14:12:43.510Z",
+          "valor": "13.1332"
+        },
+        {
+          "id": 4642,
+          "variavel": "Mewtwo",
+          "data": "2022-08-09T14:12:43.510Z",
+          "valor": "13.1332"
+        },
+        {
+          "id": 4643,
+          "variavel": "Mewtwo",
+          "data": "2022-08-09T14:12:43.510Z",
+          "valor": "13.1332"
+        },
+        {
+          "id": 4644,
+          "variavel": "Mewtwo",
+          "data": "2022-08-09T14:12:43.510Z",
+          "valor": "13.1332"
+        },
+      ],
+      resposta: 'Sucesso!!',
+    };
+
+    jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
+      return payload;
+    });
+
+    const response = await request(app).get('/variavel/').send(payload);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(checkPayload);
+  });
 });

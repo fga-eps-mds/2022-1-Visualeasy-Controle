@@ -3,6 +3,7 @@ const {
   VariavelRequestByName,
   VariavelRequestFiltered,
   VariavelRequestAllNames,
+  VariavelRequestFilteredByFixedPeriod,
 } = require('./VariavelRequest');
 const Variavel = require('../models/variavel');
 
@@ -25,6 +26,11 @@ module.exports = {
 
   async requestVariavelFiltered(request, response) {
     const variavels = await VariavelRequestFiltered(request);
+    return response.json({ variavels, resposta: 'Sucesso!!' });
+  },
+
+  async requestVariavelFilteredByFixedPeriod(request, response) {
+    const variavels = await VariavelRequestFilteredByFixedPeriod(request);
     return response.json({ variavels, resposta: 'Sucesso!!' });
   },
 };
