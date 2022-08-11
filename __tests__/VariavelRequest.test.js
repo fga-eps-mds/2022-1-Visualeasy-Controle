@@ -9,7 +9,7 @@ afterEach(() => {
 });
 
 describe('Test VariavelRequest.js functions', () => {
-  it('should ask controller to get all variable distinc names', async () => {
+  it('should ask controller to get all variable distinct names', async () => {
     const payload = [
       {
         variavel: 'teste',
@@ -82,7 +82,7 @@ describe('Test VariavelRequest.js functions', () => {
     ];
 
     jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
-      dataT = [];
+      let dataT = [];
       for (var i = 0; i < mockData.length; i++)
         if (mockData[i]['variavel'].includes(entrada['variavel']))
           dataT.push(mockData[i]);
@@ -135,7 +135,7 @@ describe('Test VariavelRequest.js functions', () => {
     ];
 
     jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
-      dataT = [];
+      let dataT = [];
       for (var i = 0; i < mockData.length; i++) {
         if (
           mockData[i]['variavel'] == entrada['variavel'] &&
@@ -153,14 +153,16 @@ describe('Test VariavelRequest.js functions', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(saida);
   });
-  it.skip('should get variable information with time fixed.', async () => {
-    const payload = [
+  it('should get variable information with time fixed.', async () => {
+
+    let payload =
       {
-        "id": 4641,
-        "variavel": "Mewtwo",
-        "data": "2022-08-09T14:12:43.510Z",
-        "valor": "13.1332"
-      },
+        "variavel": "Mewtwo"
+      };    
+
+    const mockDate = "2022-08-09T14:13:42.510Z";
+
+    const mockData = [
       {
         "id": 4641,
         "variavel": "Mewtwo",
@@ -170,13 +172,13 @@ describe('Test VariavelRequest.js functions', () => {
       {
         "id": 4642,
         "variavel": "Mewtwo",
-        "data": "2022-08-09T14:05:43.510Z",
+        "data": "2022-08-09T12:05:43.510Z",
         "valor": "13.1332"
       },
       {
         "id": 4643,
         "variavel": "Mewtwo",
-        "data": "2022-08-08T14:12:43.510Z",
+        "data": "2022-08-08T14:11:43.510Z",
         "valor": "13.1332"
       },
       {
@@ -198,19 +200,19 @@ describe('Test VariavelRequest.js functions', () => {
         {
           "id": 4642,
           "variavel": "Mewtwo",
-          "data": "2022-08-09T14:12:43.510Z",
+          "data": "2022-08-09T12:05:43.510Z",
           "valor": "13.1332"
         },
         {
           "id": 4643,
           "variavel": "Mewtwo",
-          "data": "2022-08-09T14:12:43.510Z",
+          "data": "2022-08-08T14:11:43.510Z",
           "valor": "13.1332"
         },
         {
           "id": 4644,
           "variavel": "Mewtwo",
-          "data": "2022-08-09T14:12:43.510Z",
+          "data": "2022-08-02T14:12:43.510Z",
           "valor": "13.1332"
         },
       ],
@@ -218,11 +220,40 @@ describe('Test VariavelRequest.js functions', () => {
     };
 
     jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
-      return payload;
+      let dataT = [];
+      let dateLimit = new Date(mockDate)
+      switch(payload["intervalo"]) {
+        case 1: 
+          dateLimit.setHours(dateLimit.getHours() - 1);
+          break;
+        case 2: 
+          dateLimit.setDate(dateLimit.getDate() - 1);
+          break;
+        case 3:
+          dateLimit.setDate(dateLimit.getDate() - 7);
+          break;
+        case 4:
+          dateLimit.setDate(dateLimit.getDate() - 30);
+          break;
+        default:
+          break;
+      }
+      for (var i = 0; i < mockData.length; i++) {
+        const date = new Date(mockData[i]['data'])
+        if(
+          mockData[i]['variavel'] == payload['variavel'] &&
+          date >= dateLimit
+        )
+          dataT.push(mockData[i]);
+      }
+      return dataT;
     });
 
-    const response = await request(app).get('/variavel/').send(payload);
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual(checkPayload);
+    for(var i = 0; i <= 4; i++){
+      payload["intervalo"] = i
+      let response = await request(app).post('/variavel/filteredByPeriod').send(payload);
+      expect(response.statusCode).toBe(200);
+      expect(response.body.variavels).toEqual(checkPayload.variavels.slice(0, i));
+    }
   });
 });
