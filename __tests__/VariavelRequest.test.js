@@ -260,16 +260,5 @@ describe('Test VariavelRequest.js functions', () => {
       expect(response.body.variavels).toEqual(checkPayload.variavels.slice(0, i));
     }
   });
-  it('should ask controller to run requestByName exception', async () => {
-    jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
-      throw "Incorrect Request Body";
-    });
-    const response = await request(app)
-      .post('/variavel/getNamesByName')
-      .send();
-    expect(response.statusCode).toBe(404);
-    expect(response.body).toEqual("Incorrect Request Body");
-
-  });
 
 });
