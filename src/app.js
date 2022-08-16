@@ -9,8 +9,8 @@ const Sequelize = require('sequelize');
 let app = express();
 
 let corsOptions = {
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(helmet.hidePoweredBy());
@@ -19,5 +19,6 @@ app.use(bodyParser.json());
 app.use(routes);
 
 const sequelize = new Sequelize(db);
+console.log(db);
 
 module.exports = app;

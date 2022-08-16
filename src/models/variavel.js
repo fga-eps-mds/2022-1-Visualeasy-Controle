@@ -21,6 +21,4 @@ const Variavel = sequelize.define('variavel', {
     }
 }, { schema: "variavel", timestamps: false });
 
-
-
 module.exports = Variavel;
