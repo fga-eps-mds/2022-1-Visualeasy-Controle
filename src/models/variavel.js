@@ -1,15 +1,20 @@
 const database = require('../config/db');
 const { Sequelize, DataTypes } = require('sequelize');
 // const sequelize = new Sequelize(database.url);
+let sequelize;
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false
+if (process.env.NODE_ENV == "development") {
+    sequelize = new Sequelize(process.env.DATABASE_URL);
+} else {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
         }
-    }
-});
+    });
+}
 
 const Variavel = sequelize.define('variavel', {
     id: {

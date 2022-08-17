@@ -24,6 +24,7 @@ jobs:
         echo PASSWORD=${{ secrets.ENV_PASSWORD }} >> .env
         echo DATABASE=${{ secrets.ENV_DATABASE }} >> .env
         echo PORT=${{ secrets.ENV_PORT }} >> .env
+        echo NODE_ENV=${{ secrets.ENV_NODE_ENV }} >> .env
         cat .env
     - name: Instalar Jest
       run:  npm install -g jest
