@@ -18,7 +18,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(routes);
 if (process.env.NODE_ENV == "development") {
-    const sequelize = new Sequelize(process.env.DATABASE_URL);
+    const sequelize = new Sequelize(db);
 } else {
     const sequelize = new Sequelize(process.env.DATABASE_URL, {
         dialectOptions: {

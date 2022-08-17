@@ -9,62 +9,62 @@ const request = require('supertest');
 const app = require('../src/app');
 
 afterEach(() => {
-  jest.restoreAllMocks();
+    jest.restoreAllMocks();
 });
 
 describe('Test VariavelController.js functions', () => {
-  it('should create a table in database and return', async () => {
-    const request = {
-      body: {
-        id: 1,
-        variavel: 'teste',
-        data: 'wow',
-        valor: 1618,
-      },
-    };
+    it('should create a table in database and return', async() => {
+        const request = {
+            body: {
+                id: 1,
+                variavel: 'teste',
+                data: 'wow',
+                valor: 1618,
+            },
+        };
 
-    const variavelCreate = {
-      body: {
-        id: 1,
-        variavel: 'teste',
-        data: 'wow',
-        valor: 1618,
-      },
-    };
+        const variavelCreate = {
+            body: {
+                id: 1,
+                variavel: 'teste',
+                data: 'wow',
+                valor: 1618,
+            },
+        };
 
-    jest.spyOn(Variavel, 'create').mockImplementation((req) => {
-      return request;
+        jest.spyOn(Variavel, 'create').mockImplementation((req) => {
+            return request;
+        });
+
+        const createVariavelTest = await VariavelCreate(request);
+
+        expect(createVariavelTest).toStrictEqual(variavelCreate);
     });
 
-    const createVariavelTest = await VariavelCreate(request);
+    it('should ask controller to run creation function', async() => {
+        const variavelCreate = {
+            variavel: {
+                id: 1,
+                variavel: 'teste',
+                data: 'wow',
+                valor: 1618,
+            },
+            resposta: 'Sucesso!!',
+        };
 
-    expect(createVariavelTest).toStrictEqual(variavelCreate);
-  });
+        const payload = {
+            id: 1,
+            variavel: 'teste',
+            data: 'wow',
+            valor: 1618,
+        };
 
-  it('should ask controller to run creation function', async () => {
-    const variavelCreate = {
-      variavel: {
-        id: 1,
-        variavel: 'teste',
-        data: 'wow',
-        valor: 1618,
-      },
-      resposta: 'Sucesso!!',
-    };
+        jest.spyOn(Variavel, 'create').mockImplementation((req) => {
+            return payload;
+        });
 
-    const payload = {
-      id: 1,
-      variavel: 'teste',
-      data: 'wow',
-      valor: 1618,
-    };
-
-    jest.spyOn(Variavel, 'create').mockImplementation((req) => {
-      return payload;
+        const response = await request(app).post('/variavel/create').send(payload);
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual(variavelCreate);
     });
-
-    const response = await request(app).post('/variavel/create').send(payload);
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual(variavelCreate);
-  });
 });
