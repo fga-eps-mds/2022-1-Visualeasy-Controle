@@ -1,6 +1,20 @@
 const database = require('../config/db');
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize(database);
+// const sequelize = new Sequelize(database.url);
+let sequelize;
+
+if (process.env.NODE_ENV == "development") {
+    sequelize = new Sequelize(database);
+} else {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        }
+    });
+}
 
 const Variavel = sequelize.define('variavel', {
     id: {
@@ -20,7 +34,5 @@ const Variavel = sequelize.define('variavel', {
         type: DataTypes.DOUBLE
     }
 }, { schema: "variavel", timestamps: false });
-
-
 
 module.exports = Variavel;

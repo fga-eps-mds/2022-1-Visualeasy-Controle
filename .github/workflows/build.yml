@@ -17,17 +17,19 @@ jobs:
     - name: Create env file
       run: |
         touch .env
+        echo DATABASE_URL=${{ secrets.ENV_DATABASE_URL }} >> .env
         echo DIALECT=${{ secrets.ENV_DIALECT }} >> .env
         echo HOST=${{ secrets.ENV_HOST }} >> .env
         echo USERNAME=${{ secrets.ENV_USERNAME }} >> .env
         echo PASSWORD=${{ secrets.ENV_PASSWORD }} >> .env
         echo DATABASE=${{ secrets.ENV_DATABASE }} >> .env
         echo PORT=${{ secrets.ENV_PORT }} >> .env
+        echo NODE_ENV=${{ secrets.ENV_NODE_ENV }} >> .env
         cat .env
     - name: Instalar Jest
       run:  npm install -g jest
     - name: Executar testes
-      run:  jest --coverage
+      run:  jest --coverage --runInBand --detectOpenHandles --forceExit
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:

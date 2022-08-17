@@ -50,6 +50,9 @@ describe('Test VariavelRequest.js functions', () => {
     const response = await request(app).get('/variavel/').send(payload);
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(checkPayload);
+
+    
+
   });
 
   it('should ask controller to run requestByName function', async () => {
@@ -93,6 +96,7 @@ describe('Test VariavelRequest.js functions', () => {
       .send(entrada);
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(saida);
+
   });
   it('should ask controller to run requestFiltered function', async () => {
     const entrada = {
@@ -256,4 +260,5 @@ describe('Test VariavelRequest.js functions', () => {
       expect(response.body.variavels).toEqual(checkPayload.variavels.slice(0, i));
     }
   });
+
 });
