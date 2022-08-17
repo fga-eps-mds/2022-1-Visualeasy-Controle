@@ -17,6 +17,7 @@ jobs:
     - name: Create env file
       run: |
         touch .env
+        echo DATABASE_URL=${{ secrets.ENV_DATABASE_URL }} >> .env
         echo DIALECT=${{ secrets.ENV_DIALECT }} >> .env
         echo HOST=${{ secrets.ENV_HOST }} >> .env
         echo USERNAME=${{ secrets.ENV_USERNAME }} >> .env
