@@ -1,21 +1,58 @@
 const { VariavelCreate } = require('./VariavelCreate');
-const { VariavelRequestByName } = require('./VariavelRequest');
-const { VariavelRequestFiltered } = require('./VariavelRequest');
+const {
+    VariavelRequestByName,
+    VariavelRequestFiltered,
+    VariavelRequestAllNames,
+    VariavelRequestFilteredByFixedPeriod,
+} = require('./VariavelRequest');
 const Variavel = require('../models/variavel');
 
 module.exports = {
-
     async createVariavel(request, response) {
-        const variavel = await VariavelCreate(request);
-        return response.json({ variavel, resposta: 'Sucesso!!' });
+        try {
+            const variavel = await VariavelCreate(request);
+            return response.json({ variavel, resposta: 'Sucesso!!' });
+        } catch (err) {
+            return response.status(404).json(err);
+        }
     },
-    async requestVariavel(request, response) {
+
+    async requestAllVariableNames(request, response) {
+        try {
+            const variavels = await VariavelRequestAllNames();
+            return response.json({ variavels, resposta: 'Sucesso!!' });
+        } catch (err) {
+            return response.status(404).json(err);
+        }
+    },
+
+    async requestVariavelByName(request, response) {
         //const variavels = await VariavelRequestUniques(request);
-        const variavels = await VariavelRequestByName(request);
-        return response.json({ variavels, resposta: 'Sucesso!!' });
+        try {
+            const variavels = await VariavelRequestByName(request);
+            return response.json({ variavels, resposta: 'Sucesso!!' });
+        } catch (err) {
+            return response.status(404).json(err);
+        }
+
     },
+
     async requestVariavelFiltered(request, response) {
-        const variavels = await VariavelRequestFiltered(request);
-        return response.json({ variavels, resposta: 'Sucesso!!' });
+        try {
+            const variavels = await VariavelRequestFiltered(request);
+            return response.json({ variavels, resposta: 'Sucesso!!' });
+        } catch (err) {
+            return response.status(404).json(err);
+        }
+    },
+
+    async requestVariavelFilteredByFixedPeriod(request, response) {
+        try {
+            const variavels = await VariavelRequestFilteredByFixedPeriod(request);
+            return response.json({ variavels, resposta: 'Sucesso!!' });
+        } catch (err) {
+            return response.status(404).json(err);
+        }
+
     },
 };
