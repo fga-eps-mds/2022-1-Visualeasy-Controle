@@ -21,4 +21,10 @@ app.use(routes);
 const sequelize = new Sequelize(db);
 console.log(db);
 
+
+app.get('/', (req, res) => {
+    res.json('Hello visualeasy.');
+});
+
+
 module.exports = app;
