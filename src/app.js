@@ -36,7 +36,6 @@ sequelize
         console.error('Unable to connect to the database:', err);
     });
 
-
 app.get('/', (req, res) => {
     res.json('Hello visualeasy.');
 });
