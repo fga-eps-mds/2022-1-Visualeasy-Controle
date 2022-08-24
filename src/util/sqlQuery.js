@@ -1,7 +1,6 @@
 const Variavel = require('../models/variavel');
 const sequelize = require('sequelize');
 const { Op } = require("sequelize");
-const { QueryTypes } = require('sequelize');
 
 module.exports = {
   async getDados(variavel, startDate, endDate, granularity) {
@@ -18,7 +17,8 @@ module.exports = {
             { data: { [Op.between]: [startDate, endDate] } }
           ]
         },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data"))]
+        group: [sequelize.fn('date_part', 'year', sequelize.col("data"))],
+        order: [sequelize.fn('date_part', 'year', sequelize.col("data"))]
       })
     }
     else if (granularity === 'month') {
@@ -33,7 +33,8 @@ module.exports = {
             { data: { [Op.between]: [startDate, endDate] } }
           ]
         },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data"))]
+        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data"))],
+        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data"))]
       })
     }
     else if (granularity === 'day') {
@@ -54,7 +55,8 @@ module.exports = {
             { data: { [Op.between]: [startDate, endDate] } }
           ]
         },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data"))]
+        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data"))],
+        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data"))]
       })
     }
     else if (granularity === 'hour') {
@@ -78,7 +80,8 @@ module.exports = {
             { data: { [Op.between]: [startDate, endDate] } }
           ]
         },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data"))]
+        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data"))],
+        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data"))]
       })
     }
     else if (granularity === 'minute') {
@@ -104,7 +107,8 @@ module.exports = {
             { data: { [Op.between]: [startDate, endDate] } }
           ]
         },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data"))]
+        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data"))],
+        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data"))]
       })
     }
     else if (granularity === 'second') {
@@ -132,7 +136,8 @@ module.exports = {
             { data: { [Op.between]: [startDate, endDate] } }
           ]
         },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data")), sequelize.fn('date_part', 'second', sequelize.col("data"))]
+        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data")), sequelize.fn('date_part', 'second', sequelize.col("data"))],
+        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data")), sequelize.fn('date_part', 'second', sequelize.col("data"))]
       })
     }
     return variavels

@@ -1,7 +1,5 @@
 const Variavel = require('../models/variavel');
 const Sequelize = require('sequelize');
-const sequelize = require('sequelize');
-const { Op } = require("sequelize");
 const { getDados } = require('../util/sqlQuery')
 
 module.exports = {
