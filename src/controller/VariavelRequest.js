@@ -1,7 +1,11 @@
 const Variavel = require('../models/variavel');
 const Sequelize = require('sequelize');
+const sequelize = require('sequelize');
+const { Op } = require("sequelize");
+const { getDados } = require('../util/sqlQuery')
 
 module.exports = {
+
   async VariavelRequestAllNames() {
     const variavels = await Variavel.findAll({
       attributes: [
@@ -24,46 +28,52 @@ module.exports = {
     return variavels;
   },
 
+  /*   async VariavelRequestFiltered(request) {
+      const { variavel, startDate, endDate } = request.body;
+      const variavels = await Variavel.findAll({
+        where: {
+          variavel: variavel,
+          data: { [Sequelize.Op.between]: [startDate, endDate] },
+        },
+      });
+      return variavels;
+    }, */
+
   async VariavelRequestFiltered(request) {
-    const { variavel, startDate, endDate } = request.body;
-    const variavels = await Variavel.findAll({
-      where: {
-        variavel: variavel,
-        data: { [Sequelize.Op.between]: [startDate, endDate] },
-      },
-    });
-    return variavels;
+    try {
+      const { variavel, startDate, endDate, granularity } = request.body;
+      const variavels = await getDados(variavel, startDate, endDate, granularity)
+      return variavels;
+
+    } catch (e) {
+      console.log("esse é o erro", e)
+    }
   },
 
   async VariavelRequestFilteredByFixedPeriod(request) {
-    const { variavel, intervalo } = request.body;
-
+    const { variavel, intervalo, granularity } = request.body;
     const today = new Date();
     let period = new Date();
+    let variavels
 
-    switch(intervalo) {
-      case 1: 
-        period.setHours( period.getHours() - 1);
+    switch (intervalo) {
+      case 1:
+        period.setHours(period.getHours() - 1);
         break;
-      case 2: 
-        period.setDate( period.getDate() - 1);
+      case 2:
+        period.setDate(period.getDate() - 1);
         break;
       case 3:
-        period.setDate( period.getDate() - 7);
+        period.setDate(period.getDate() - 7);
         break;
       case 4:
-        period.setDate( period.getDate() - 30);
+        period.setDate(period.getDate() - 30);
         break;
       default:
         break;
     }
-
-    const variavels = await Variavel.findAll({
-      where: {
-        variavel: variavel,
-        data: { [Sequelize.Op.between]: [period, today] },
-      },
-    });
+    variavels = await getDados(variavel, period, today, granularity)
     return variavels;
   },
 };
+
