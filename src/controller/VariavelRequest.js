@@ -1,6 +1,6 @@
 const Variavel = require('../models/variavel');
 const Sequelize = require('sequelize');
-const { getDados } = require('../util/sqlQuery')
+const SqlQuery = require('../util/sqlQuery')
 
 module.exports = {
 
@@ -38,14 +38,9 @@ module.exports = {
     }, */
 
   async VariavelRequestFiltered(request) {
-    try {
       const { variavel, startDate, endDate, granularity } = request.body;
-      const variavels = await getDados(variavel, startDate, endDate, granularity)
+      const variavels = await SqlQuery.getDados(variavel, startDate, endDate, granularity);
       return variavels;
-
-    } catch (e) {
-      console.log("esse é o erro", e)
-    }
   },
 
   async VariavelRequestFilteredByFixedPeriod(request) {
@@ -70,7 +65,7 @@ module.exports = {
       default:
         break;
     }
-    variavels = await getDados(variavel, period, today, granularity)
+    variavels = await SqlQuery.getDados(variavel, period, today, granularity)
     return variavels;
   },
 };

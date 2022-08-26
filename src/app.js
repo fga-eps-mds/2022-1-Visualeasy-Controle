@@ -39,9 +39,4 @@ if (process.env.NODE_ENV == "development") {
         });
 }
 
-app.get('/', (req, res) => {
-    res.json('Hello visualeasy.');
-});
-
-
 module.exports = app;

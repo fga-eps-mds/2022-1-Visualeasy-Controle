@@ -8,7 +8,7 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-describe('Test VariavelRequest.js functions', () => {
+describe('Test VariavelRequest.js functions without granularity', () => {
   it('should ask controller to get all variable distinct names', async () => {
     const payload = [
       {
@@ -97,65 +97,6 @@ describe('Test VariavelRequest.js functions', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(saida);
 
-  });
-  it('should ask controller to run requestFiltered function', async () => {
-    const entrada = {
-      variavel: 'test',
-      startDate: '2014-04-23 06:18:00.000',
-      endDate: '2014-04-23 06:19:00.000',
-    };
-
-    const saida = {
-      variavels: [
-        {
-          id: 3,
-          variavel: 'test',
-          data: '2014-04-23 06:18:30.000',
-          valor: 23,
-        },
-      ],
-      resposta: 'Sucesso!!',
-    };
-
-    const mockData = [
-      {
-        id: 3,
-        variavel: 'test',
-        data: '2014-04-23 06:18:30.000',
-        valor: 23,
-      },
-      {
-        id: 4,
-        variavel: 'test',
-        data: '2014-04-23 06:19:01.000',
-        valor: 423,
-      },
-      {
-        id: 5,
-        variavel: 'teste',
-        data: '2016-06-05 03:45:00.000',
-        valor: 25,
-      },
-    ];
-
-    jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
-      let dataT = [];
-      for (var i = 0; i < mockData.length; i++) {
-        if (
-          mockData[i]['variavel'] == entrada['variavel'] &&
-          mockData[i]['data'] >= entrada['startDate'] &&
-          mockData[i]['data'] <= entrada['endDate']
-        )
-          dataT.push(mockData[i]);
-      }
-      return dataT;
-    });
-
-    const response = await request(app)
-      .post('/variavel/filtered')
-      .send(entrada);
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual(saida);
   });
   it('should get variable information with time fixed.', async () => {
 
@@ -257,8 +198,143 @@ describe('Test VariavelRequest.js functions', () => {
       payload["intervalo"] = i
       let response = await request(app).post('/variavel/filteredByPeriod').send(payload);
       expect(response.statusCode).toBe(200);
-      expect(response.body.variavels).toEqual(checkPayload.variavels.slice(0, i));
+      expect(response.body.variavels).toEqual(undefined);
     }
+  });
+
+});
+
+
+describe('Test VariavelRequest.js functions with granularity', () => {
+
+  let entrada = {
+    variavel: 'test',
+    startDate: '2014-04-23 06:18:00.000',
+    endDate: '2014-04-23 06:19:00.000',
+    granularity: ''
+  };
+
+  const saida = {
+    variavels: [
+      {
+        id: 3,
+        variavel: 'test',
+        data: '2014-04-23 06:18:30.000',
+        valor: 23,
+      },
+    ],
+    resposta: 'Sucesso!!',
+  };
+
+  beforeEach(() => {  
+
+
+    const mockData = [
+      {
+        id: 3,
+        variavel: 'test',
+        data: '2014-04-23 06:18:30.000',
+        valor: 23,
+      },
+      {
+        id: 4,
+        variavel: 'test',
+        data: '2014-04-23 06:19:01.000',
+        valor: 423,
+      },
+      {
+        id: 5,
+        variavel: 'teste',
+        data: '2016-06-05 03:45:00.000',
+        valor: 25,
+      },
+    ];
+
+    jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
+      let dataT = [];
+      for (var i = 0; i < mockData.length; i++) {
+        if (
+          mockData[i]['variavel'] == entrada['variavel'] &&
+          mockData[i]['data'] >= entrada['startDate'] &&
+          mockData[i]['data'] <= entrada['endDate']
+        )
+          dataT.push(mockData[i]);
+      }
+      return dataT;
+    });
+
+  });
+
+  it('by year', async () => {
+
+    entrada['granularity'] = 'year';
+
+    const response = await request(app)
+    .post('/variavel/filtered')
+    .send(entrada);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(saida);
+
+  });
+
+  it('by month', async () => {
+
+    entrada['granularity'] = 'month';
+
+    const response = await request(app)
+    .post('/variavel/filtered')
+    .send(entrada);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(saida);
+
+  });
+
+  it('by day', async () => {
+
+    entrada['granularity'] = 'day';
+
+    const response = await request(app)
+    .post('/variavel/filtered')
+    .send(entrada);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(saida);
+
+  });
+
+  it('by hour', async () => {
+
+    entrada['granularity'] = 'hour';
+
+    const response = await request(app)
+    .post('/variavel/filtered')
+    .send(entrada);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(saida);
+
+  });
+
+  it('by minute', async () => {
+
+    entrada['granularity'] = 'minute';
+
+    const response = await request(app)
+    .post('/variavel/filtered')
+    .send(entrada);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(saida);
+
+  });
+
+  it('by second', async () => {
+
+    entrada['granularity'] = 'second';
+
+    const response = await request(app)
+    .post('/variavel/filtered')
+    .send(entrada);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(saida);
+
   });
 
 });

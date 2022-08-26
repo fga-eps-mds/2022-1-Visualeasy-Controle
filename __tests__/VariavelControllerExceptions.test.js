@@ -3,6 +3,7 @@ const Variavel = require('../src/models/variavel');
 const { response } = require('express');
 const request = require('supertest');
 const app = require('../src/app');
+const SqlQuery = require('../src/util/sqlQuery');
 
 afterEach(() => {
     jest.restoreAllMocks();
@@ -39,7 +40,7 @@ describe('Test VariavelController.js exceptions', () => {
         expect(response.body).toEqual("Exception Occurred");
     });
     it('should test requestVariavelFiltered exception', async() => {
-        jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
+        jest.spyOn(SqlQuery, 'getDados').mockImplementation((req) => {
             throw "Exception Occurred";
         });
         const response = await request(app)
@@ -49,7 +50,7 @@ describe('Test VariavelController.js exceptions', () => {
         expect(response.body).toEqual("Exception Occurred");
     });
     it('should test requestVariavelFilteredByFixedPeriod exception', async() => {
-        jest.spyOn(Variavel, 'findAll').mockImplementation((req) => {
+        jest.spyOn(SqlQuery, 'getDados').mockImplementation((req) => {
             throw "Exception Occurred";
         });
         const response = await request(app)
