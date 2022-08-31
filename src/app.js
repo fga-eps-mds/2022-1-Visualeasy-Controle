@@ -9,7 +9,7 @@ const Sequelize = require('sequelize');
 let app = express();
 
 let corsOptions = {
-    origin: 'https://visualeasy.herokuapp.com/',
+    origin: 'https://visualeasy.herokuapp.com/*',
     optionsSuccessStatus: 204, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
