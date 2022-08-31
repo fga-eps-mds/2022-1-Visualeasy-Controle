@@ -9,10 +9,8 @@ const Sequelize = require('sequelize');
 let app = express();
 
 let corsOptions = {
-  origin: '*',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  preflightContinue: false,
-  optionsSuccessStatus: 204
+    origin: 'https://visualeasy.herokuapp.com/',
+    optionsSuccessStatus: 204, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(helmet.hidePoweredBy());
