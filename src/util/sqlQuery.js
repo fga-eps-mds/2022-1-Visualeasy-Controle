@@ -5,141 +5,59 @@ const { Op } = require("sequelize");
 module.exports = {
   async getDados(variavel, startDate, endDate, granularity) {
     let variavels
-    if (granularity === 'year') {
-      variavels = await Variavel.findAll({
-        attributes: [
-          [sequelize.fn('date_part', 'year', sequelize.col("data")), "data"],
-          [sequelize.cast(sequelize.fn("AVG", sequelize.col("valor")), 'DECIMAL(8, 2)'), "valor"]
-        ],
-        where: {
-          [Op.and]: [
-            { variavel: variavel },
-            { data: { [Op.between]: [startDate, endDate] } }
-          ]
-        },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data"))],
-        order: [sequelize.fn('date_part', 'year', sequelize.col("data"))]
-      })
+    const daySeq = sequelize.fn('date_part', 'day', sequelize.col("data"))
+    const monthSeq = sequelize.fn('date_part', 'month', sequelize.col("data"))
+    const yearSeq = sequelize.fn('date_part', 'year', sequelize.col("data"))
+    const hourSeq = sequelize.fn('date_part', 'hour', sequelize.col("data"))
+    const minuteSeq = sequelize.fn('date_part', 'minute', sequelize.col("data"))
+    const secondSeq = sequelize.fn('date_part', 'second', sequelize.col("data"))
+    let attributesParameters
+    let groupParameters
+    switch(granularity){
+      case 'year':
+        attributesParameters = [yearSeq, "date"]
+        groupParameters = [yearSeq]
+      break
+      case 'month':
+        attributesParameters = [sequelize.fn('concat', monthSeq,'-', yearSeq), "date"]
+        groupParameters = [yearSeq, monthSeq]
+      break
+      case 'day':
+        attributesParameters = [sequelize.fn('concat', daySeq, '-', monthSeq, '-', yearSeq), "date"]
+        groupParameters = [yearSeq, monthSeq, daySeq]
+      break
+      case 'hour':
+        attributesParameters = [sequelize.fn('concat',
+          daySeq, '-', monthSeq, '-', yearSeq, ' ', hourSeq), "date"]
+        groupParameters = [yearSeq, monthSeq, daySeq, hourSeq]
+      break
+      case 'minute':
+        attributesParameters = [sequelize.fn('concat',
+          daySeq, '-', monthSeq, '-', yearSeq, ' ', hourSeq, ':', minuteSeq), "date"]
+        groupParameters = [yearSeq, monthSeq, daySeq, hourSeq, minuteSeq]
+      break
+      case 'second':
+        attributesParameters = [sequelize.fn('concat',
+          daySeq, '-', monthSeq, '-', yearSeq, ' ', hourSeq, ':', minuteSeq, ':', secondSeq), "date"]
+        groupParameters = [yearSeq, monthSeq, daySeq, hourSeq, minuteSeq, secondSeq]
+      break
+      default:
+        return undefined
     }
-    else if (granularity === 'month') {
-      variavels = await Variavel.findAll({
-        attributes: [
-          [sequelize.fn('concat', sequelize.fn('date_part', 'month', sequelize.col("data")), '-', sequelize.fn('date_part', 'year', sequelize.col("data"))), "date"],
-          [sequelize.cast(sequelize.fn("AVG", sequelize.col("valor")), 'DECIMAL(8, 2)'), "valor"]
-        ],
-        where: {
-          [Op.and]: [
-            { variavel: variavel },
-            { data: { [Op.between]: [startDate, endDate] } }
-          ]
-        },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data"))],
-        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data"))]
-      })
-    }
-    else if (granularity === 'day') {
-      variavels = await Variavel.findAll({
-        attributes: [
-          [sequelize.fn('concat',
-            sequelize.fn('date_part', 'day', sequelize.col("data")),
-            '-',
-            sequelize.fn('date_part', 'month', sequelize.col("data")),
-            '-',
-            sequelize.fn('date_part', 'year', sequelize.col("data"))),
-            "date"],
-          [sequelize.cast(sequelize.fn("AVG", sequelize.col("valor")), 'DECIMAL(8, 2)'), "valor"]
-        ],
-        where: {
-          [Op.and]: [
-            { variavel: variavel },
-            { data: { [Op.between]: [startDate, endDate] } }
-          ]
-        },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data"))],
-        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data"))]
-      })
-    }
-    else if (granularity === 'hour') {
-      variavels = await Variavel.findAll({
-        attributes: [
-          [sequelize.fn('concat',
-            sequelize.fn('date_part', 'day', sequelize.col("data")),
-            '-',
-            sequelize.fn('date_part', 'month', sequelize.col("data")),
-            '-',
-            sequelize.fn('date_part', 'year', sequelize.col("data")),
-            ' ',
-            sequelize.fn('date_part', 'hour', sequelize.col("data")),
-          ),
-            "date"],
-          [sequelize.cast(sequelize.fn("AVG", sequelize.col("valor")), 'DECIMAL(8, 2)'), "valor"]
-        ],
-        where: {
-          [Op.and]: [
-            { variavel: variavel },
-            { data: { [Op.between]: [startDate, endDate] } }
-          ]
-        },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data"))],
-        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data"))]
-      })
-    }
-    else if (granularity === 'minute') {
-      variavels = await Variavel.findAll({
-        attributes: [
-          [sequelize.fn('concat',
-            sequelize.fn('date_part', 'day', sequelize.col("data")),
-            '-',
-            sequelize.fn('date_part', 'month', sequelize.col("data")),
-            '-',
-            sequelize.fn('date_part', 'year', sequelize.col("data")),
-            ' ',
-            sequelize.fn('date_part', 'hour', sequelize.col("data")),
-            ':',
-            sequelize.fn('date_part', 'minute', sequelize.col("data")),
-          ),
-            "date"],
-          [sequelize.cast(sequelize.fn("AVG", sequelize.col("valor")), 'DECIMAL(8, 2)'), "valor"]
-        ],
-        where: {
-          [Op.and]: [
-            { variavel: variavel },
-            { data: { [Op.between]: [startDate, endDate] } }
-          ]
-        },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data"))],
-        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data"))]
-      })
-    }
-    else if (granularity === 'second') {
-      variavels = await Variavel.findAll({
-        attributes: [
-          [sequelize.fn('concat',
-            sequelize.fn('date_part', 'day', sequelize.col("data")),
-            '-',
-            sequelize.fn('date_part', 'month', sequelize.col("data")),
-            '-',
-            sequelize.fn('date_part', 'year', sequelize.col("data")),
-            ' ',
-            sequelize.fn('date_part', 'hour', sequelize.col("data")),
-            ':',
-            sequelize.fn('date_part', 'minute', sequelize.col("data")),
-            ':',
-            sequelize.fn('date_part', 'second', sequelize.col("data")),
-          ),
-            "date"],
-          [sequelize.cast(sequelize.fn("AVG", sequelize.col("valor")), 'DECIMAL(8, 2)'), "valor"]
-        ],
-        where: {
-          [Op.and]: [
-            { variavel: variavel },
-            { data: { [Op.between]: [startDate, endDate] } }
-          ]
-        },
-        group: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data")), sequelize.fn('date_part', 'second', sequelize.col("data"))],
-        order: [sequelize.fn('date_part', 'year', sequelize.col("data")), sequelize.fn('date_part', 'month', sequelize.col("data")), sequelize.fn('date_part', 'day', sequelize.col("data")), sequelize.fn('date_part', 'hour', sequelize.col("data")), sequelize.fn('date_part', 'minute', sequelize.col("data")), sequelize.fn('date_part', 'second', sequelize.col("data"))]
-      })
-    }
+    variavels = await Variavel.findAll({
+      attributes: [
+        attributesParameters,
+        [sequelize.cast(sequelize.fn("AVG", sequelize.col("valor")), 'DECIMAL(8, 2)'), "valor"]
+      ],
+      where: {
+        [Op.and]: [
+          { variavel: variavel },
+          { data: { [Op.between]: [startDate, endDate] } }
+        ]
+      },
+      group: groupParameters,
+      order: groupParameters
+    })
     return variavels
   },
 
