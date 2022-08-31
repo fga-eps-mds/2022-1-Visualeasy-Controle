@@ -8,8 +8,16 @@ const Sequelize = require('sequelize');
 
 let app = express();
 
+let urlOrigin = '';
+
+if (process.env.NODE_ENV == "development") {
+  urlOrigin = 'http://localhost:3000'
+} else {
+  urlOrigin = 'https://visualeasy.herokuapp.com'
+}
+
 let corsOptions = {
-    origin: 'https://visualeasy.herokuapp.com',
+    origin: urlOrigin,
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
