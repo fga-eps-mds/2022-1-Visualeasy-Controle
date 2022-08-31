@@ -8,10 +8,18 @@ const Sequelize = require('sequelize');
 
 let app = express();
 
-// let corsOptions = {
-//     origin: 'https://visualeasy.herokuapp.com/',
-//     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
+let urlOrigin = '';
+
+if (process.env.NODE_ENV == "development") {
+  urlOrigin = 'http://localhost:3000'
+} else {
+  urlOrigin = 'https://visualeasy.herokuapp.com'
+}
+
+let corsOptions = {
+    origin: urlOrigin,
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 app.use(helmet.hidePoweredBy());
 app.use(cors());
@@ -38,10 +46,5 @@ if (process.env.NODE_ENV == "development") {
             console.error('Unable to connect to the database:', err);
         });
 }
-
-app.get('/', (req, res) => {
-    res.json('Hello visualeasy.');
-});
-
 
 module.exports = app;

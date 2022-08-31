@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# csvFiles
+csvFiles/dados_unb.csv
