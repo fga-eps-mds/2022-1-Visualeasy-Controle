@@ -22,7 +22,7 @@ let corsOptions = {
 };
 
 app.use(helmet.hidePoweredBy());
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(routes);
 if (process.env.NODE_ENV == "development") {
