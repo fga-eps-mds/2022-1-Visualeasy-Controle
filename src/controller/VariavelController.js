@@ -27,7 +27,6 @@ module.exports = {
     },
 
     async requestVariavelByName(request, response) {
-        //const variavels = await VariavelRequestUniques(request);
         try {
             const variavels = await VariavelRequestByName(request);
             return response.json({ variavels, resposta: 'Sucesso!!' });
