@@ -1,5 +1,3 @@
-<!--Antes de enviar este PR certifique-se de ter lido o documento CONTRIBUTING(CONTRIBUTING.md). Preencha o que é pedido a seguir e exclua ou acrescente trechos conforme necessário.)-->
-
 ### Descrição
 
 Descrições e justificativas a respeito das mudanças que você realizou.

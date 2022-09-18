@@ -1,6 +1,5 @@
 const database = require('../config/db');
 const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize(database.url);
 let sequelize;
 
 if (process.env.NODE_ENV == "development") {

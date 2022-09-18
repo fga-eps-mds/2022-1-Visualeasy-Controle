@@ -26,21 +26,10 @@ module.exports = {
     return variavels;
   },
 
-  /*   async VariavelRequestFiltered(request) {
-      const { variavel, startDate, endDate } = request.body;
-      const variavels = await Variavel.findAll({
-        where: {
-          variavel: variavel,
-          data: { [Sequelize.Op.between]: [startDate, endDate] },
-        },
-      });
-      return variavels;
-    }, */
-
   async VariavelRequestFiltered(request) {
-      const { variavel, startDate, endDate, granularity } = request.body;
-      const variavels = await SqlQuery.getDados(variavel, startDate, endDate, granularity);
-      return variavels;
+    const { variavel, startDate, endDate, granularity } = request.body;
+    const variavels = await SqlQuery.getDados(variavel, startDate, endDate, granularity);
+    return variavels;
   },
 
   async VariavelRequestFilteredByFixedPeriod(request) {
