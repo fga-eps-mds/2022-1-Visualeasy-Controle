@@ -1,5 +1,4 @@
 module.exports = {
-  // ...
   moduleDirectories: ['node_modules', '<rootDir>/'],
   moduleFileExtensions: [
     'js',
@@ -31,5 +30,4 @@ module.exports = {
   testMatch: [
     '**/*.test.js',
   ],
-  // ...
 };
