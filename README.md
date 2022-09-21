@@ -24,6 +24,17 @@
 * ### Instalação
 Primeiramente é necessário ter o docker instalado, caso não tenha acesse o [Instalação docker](https://docs.docker.com/engine/installation/linux/docker-ce/). Após feito isso, instale o [Docker-compose](https://docs.docker.com/compose/install/).
 
+Para rodar o projeto adequadamente é preciso criar o arquivo `.env` na raiz do projeto possuindo as informações dos seguintes campos:
+
+```js
+DIALECT=
+HOST=
+USERNAME=
+PASSWORD=
+DATABASE=
+PORT=
+```
+
 * ### Organização do projeto
 O projeto é separado em diferentes pacotes, sendo que cada microserviço está separado em um container, sendo que todos os pacotes precisam do container "postgres" para funcionar corretamente. Os containers existentes atualmente são: controle e postgres.
 
