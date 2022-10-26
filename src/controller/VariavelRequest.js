@@ -4,6 +4,9 @@ const SqlQuery = require('../util/sqlQuery')
 
 module.exports = {
 
+  /**
+  * Get all variables names.
+  */
   async VariavelRequestAllNames() {
     const variavels = await Variavel.findAll({
       attributes: [
@@ -13,6 +16,9 @@ module.exports = {
     return variavels;
   },
 
+  /**
+  * Get variable with request by name.
+  */
   async VariavelRequestByName(request) {
     const variavel = '%' + request.body.variavel + '%';
     const variavels = await Variavel.findAll({
@@ -26,12 +32,18 @@ module.exports = {
     return variavels;
   },
 
+  /**
+  * Get values of variable by its name, start date, end date, and granularity.
+  */
   async VariavelRequestFiltered(request) {
     const { variavel, startDate, endDate, granularity } = request.body;
     const variavels = await SqlQuery.getDados(variavel, startDate, endDate, granularity);
     return variavels;
   },
 
+  /**
+  * Get values of variable with fixed period and filter it by name and granularity.
+  */
   async VariavelRequestFilteredByFixedPeriod(request) {
     const { variavel, intervalo, granularity } = request.body;
     const today = new Date();

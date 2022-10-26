@@ -3,6 +3,9 @@ const sequelize = require('sequelize');
 const { Op } = require("sequelize");
 
 module.exports = {
+  /**
+  * Get variable tuples with concatenated values by granularity (filtered by start date and end date).
+  */
   async getDados(variavel, startDate, endDate, granularity) {
     let variavels
     const daySeq = sequelize.fn('date_part', 'day', sequelize.col("data"))

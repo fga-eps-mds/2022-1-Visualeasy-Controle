@@ -1,6 +1,9 @@
 const Variavel = require('../models/variavel');
 
 module.exports = {
+    /**
+     * Create variable with request ==> ID; VARIAVEL; DATA; VALOR;
+     */
     async VariavelCreate(request) {
         try {
             const { id, variavel, data, valor } = request.body;
