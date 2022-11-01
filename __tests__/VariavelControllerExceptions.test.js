@@ -1,6 +1,4 @@
-const spy = jest.fn();
 const Variavel = require('../src/models/variavel');
-const { response } = require('express');
 const request = require('supertest');
 const app = require('../src/app');
 const SqlQuery = require('../src/util/sqlQuery');
